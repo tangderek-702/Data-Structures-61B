@@ -98,4 +98,14 @@ public class BuggyIntDListTest {
         assertEquals("Fourth item after reversal should be 23", 23, l.get(3));
         assertEquals("Fifth item after reversal should be 12", 12, l.get(4));
     }
+
+    @Test
+    public void myTest(){
+        l = new BuggyIntDList(2,4);
+        m = new BuggyIntDList(1,3);
+        l.mergeIntDList(m);
+        assertEquals("Size after merge should be 4", 4, l.size());
+        assertEquals(".getFront() should be 1", 1, l.getFront());
+        assertEquals(".getBack() should be 4", 4, l.getBack());
+    }
 }
