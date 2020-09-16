@@ -1,0 +1,184 @@
+import java.util.Arrays;
+
+public class ArrayDeque<T> {
+
+    int front;
+    int back;
+    int sentinel;
+    T[] a;
+    int arraySize = 8;
+    int size = 0;
+
+
+    public ArrayDeque() {
+        this.front = 0;
+        this.back = 0;
+        this.sentinel =0;
+        this.a = (T[]) new Object[arraySize];
+        this.size = 0;
+    }
+
+    // 1 2 3 4 5 6 7 8 9 10
+    // 1 2 3 4 5  -4  -3  -2  -1 0
+
+    // 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
+    // 1 2 3 4 5                         -4  -3  -2  -1 0
+
+    // sent 1 2 3 4 5 6 7 8 9 10
+
+
+    // maintain abstraction
+
+
+    // resize for certain values
+    // or a single sentinel
+    // sentinal.next == front
+    // sentinal.prev == back
+    // 8 array size
+    // inserted 8
+    // now full
+    // so you must copy this into a new array
+    // perhaps 16 values
+    // also preserve the abstraction of front, back
+
+    public void addFirst(T item) {
+        // size up when full
+        if(this.size +1 == this.a.length) {
+            // perform resizing operation
+            T[] aHolder = Arrays.copyOf(this.a, arraySize*2);
+            int numCopyElements = this.arraySize - back -1;
+            this.arraySize *= 2;
+            if(back != sentinel) {
+                System.arraycopy(this.a, back, aHolder, arraySize - 1 -(numCopyElements), numCopyElements);
+                back = arraySize-numCopyElements;
+            }
+            this.a = aHolder;
+        }
+        if(front + 1 == a.length) {
+            front = 0;
+        }
+        else {
+            front++;
+        }
+        a[front] = item;
+        size++;
+    }
+    public void addLast(T item){
+        if(this.size +1 == this.a.length) {
+            // perform resizing operation
+            T[] aHolder = Arrays.copyOf(this.a, arraySize*2);
+            int numCopyElements = this.arraySize - back -1;
+            this.arraySize *= 2;
+            if(back != sentinel) {
+                System.arraycopy(this.a, back, aHolder, arraySize - 1 -(numCopyElements), numCopyElements);
+                back = arraySize-numCopyElements;
+            }
+            this.a = aHolder;
+
+        }
+        if(back - 1 == - 1) {
+            back = a.length -1;
+        } else {
+            back--;
+        }
+        a[back] = item;
+        size++;
+    }
+
+    public boolean isEmpty(){
+        return this.size == 0;
+    }
+
+    public int size() {
+        return this.size;
+    }
+    public void printDeque() {
+        for(int i = 0; i < this.size; i++) {
+            this.get(i);
+            System.out.println(this.get(i));
+        }
+    }
+    public T removeFirst() {
+        if(this.back == this.sentinel && this.front == this.sentinel) {
+            return null;
+        }
+        if(this.front == this.sentinel) {
+            this.front = this.a.length -1;
+        }
+        T firstElement = this.a[this.front];
+        this.front--;
+
+        if(this.size == 0) {
+            this.front = this.sentinel;
+            this.back = this.sentinel;
+        }
+
+        double ratio  = (double) this.size / (double) this.arraySize;
+        if(ratio <= 0.25 && this.arraySize > 8) {
+            T[] aHolder = Arrays.copyOf(this.a, arraySize / 2);
+            int numCopyElements = this.arraySize - back -1;
+            this.arraySize /= 2;
+            if(back != sentinel) {
+                System.arraycopy(this.a, back, aHolder, arraySize - 1 -(numCopyElements), numCopyElements);
+                back = arraySize- numCopyElements;
+            }
+            this.a = aHolder;
+
+        }
+        size--;
+
+        return firstElement;
+    }
+
+    //  sent 1 2 3 4
+    public T removeLast() {
+        if(this.back == this.sentinel && this.front == this.sentinel) {
+            return null;
+        }
+        if(this.back == this.sentinel || this.back == this.a.length) {
+            this.back = this.sentinel + 1;
+        }
+        T lastElement = this.a[this.back];
+        back++;
+        this.size--;
+
+        if(this.size == 0) {
+            this.front = this.sentinel;
+            this.back = this.sentinel;
+        }
+
+         double ratio  = (double) this.size / (double) this.arraySize;
+         if(ratio <= 0.25 && this.arraySize > 8) {
+             T[] aHolder = Arrays.copyOf(this.a, arraySize / 2);
+             int numCopyElements = this.arraySize - back - 1;
+             this.arraySize /= 2;
+             if(back != sentinel) {
+                 System.arraycopy(this.a, back, aHolder, arraySize - 1 -(numCopyElements), numCopyElements);
+                 back = arraySize- numCopyElements;
+             }
+             this.a = aHolder;
+
+         }
+         return lastElement;
+    }
+    public T get(int index) {
+        if(this.size <= index) {
+            return null;
+        }
+        int curIndex = this.front;
+        int count = 0;
+        int frontElements = this.front;
+            if(index + 1 > frontElements) {
+                index = index - frontElements;
+                curIndex = this.sentinel;
+            } else {
+                return this.a[this.front - index];
+            }
+        if(curIndex == this.sentinel) {
+            curIndex = this.a.length -1;
+        }
+        return this.a[curIndex -index];
+
+    }
+
+}
