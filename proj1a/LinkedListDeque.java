@@ -81,4 +81,9 @@ public class LinkedListDeque <T> {
         }
         return null;
     }
+
+    public T getRecursive(int index){
+        return get(index);
+    }
+
 }
