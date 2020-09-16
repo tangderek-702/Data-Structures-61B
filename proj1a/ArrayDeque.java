@@ -70,7 +70,7 @@ public class ArrayDeque<T> {
         return this.size;
     }
     public void printDeque() {
-        for(int i = 0; i < this.size; i++) {
+        for (int i = 0; i < this.size; i++) {
             this.get(i);
             System.out.println(this.get(i));
         }
@@ -91,11 +91,11 @@ public class ArrayDeque<T> {
         }
 
         double ratio  = (double) this.size / (double) this.arraySize;
-        if(ratio <= 0.25 && this.arraySize > 8) {
+        if (ratio <= 0.25 && this.arraySize > 8) {
             T[] aHolder = Arrays.copyOf(this.a, arraySize / 2);
             int numCopyElements = this.arraySize - back - 1;
             this.arraySize /= 2;
-            if(back != sentinel) {
+            if (back != sentinel) {
                 System.arraycopy(this.a, back, aHolder,
                         arraySize - 1 - (numCopyElements), numCopyElements);
                 back = arraySize - numCopyElements;
@@ -123,20 +123,18 @@ public class ArrayDeque<T> {
             this.front = this.sentinel;
             this.back = this.sentinel;
         }
-
-         double ratio  = (double) this.size / (double) this.arraySize;
-         if (ratio <= 0.25 && this.arraySize > 8) {
-             T[] aHolder = Arrays.copyOf(this.a, arraySize / 2);
-             int numCopyElements = this.arraySize - back - 1;
-             this.arraySize /= 2;
-             if (back != sentinel) {
-                 System.arraycopy(this.a, back, aHolder,
-                         arraySize - 1 - (numCopyElements), numCopyElements);
-                 back = arraySize - numCopyElements;
-             }
-             this.a = aHolder;
-
-         }
+        double ratio  = (double) this.size / (double) this.arraySize;
+        if (ratio <= 0.25 && this.arraySize > 8) {
+            T[] aHolder = Arrays.copyOf(this.a, arraySize / 2);
+            int numCopyElements = this.arraySize - back - 1;
+            this.arraySize /= 2;
+            if (back != sentinel) {
+            System.arraycopy(this.a, back, aHolder,
+                 arraySize - 1 - (numCopyElements), numCopyElements);
+            back = arraySize - numCopyElements;
+            }
+            this.a = aHolder;
+        }
          return lastElement;
     }
     public T get(int index) {

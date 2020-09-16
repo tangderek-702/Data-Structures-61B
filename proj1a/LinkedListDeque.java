@@ -1,11 +1,11 @@
-public class LinkedListDeque <T> {
+public class LinkedListDeque<T> {
     /** TNode Class */
     private class TNode{
         public T item;
         public TNode prev;
         public TNode next;
         /** TNode Constructor */
-        public TNode(TNode last, T label, TNode nxt){
+        public TNode(TNode last, T label, TNode nxt) {
             prev = last;
             item = label;
             next = nxt;
@@ -18,19 +18,19 @@ public class LinkedListDeque <T> {
 
     /** LLDeque Constructor: creates empty LL */
     public LinkedListDeque() {
-        this.sentinel = new TNode(null, null, null);
+        this.sentinel = new TNode(null , null , null);
         this.sentinel.next = sentinel;
         this.sentinel.prev = sentinel;
     }
 
     public void addFirst(T item) {
-        this.sentinel.next = new TNode(this.sentinel, item ,this.sentinel.next);
+        this.sentinel.next = new TNode(this.sentinel , item , this.sentinel.next);
         this.sentinel.next.next.prev = this.sentinel.next;
         size += 1;
     }
 
     public void addLast(T item) {
-        this.sentinel.prev = new TNode(this.sentinel.prev, item, this.sentinel);
+        this.sentinel.prev = new TNode(this.sentinel.prev , item , this.sentinel);
         this.sentinel.prev.prev.next = this.sentinel.prev;
         size += 1;
     }
@@ -51,7 +51,7 @@ public class LinkedListDeque <T> {
         }
     }
 
-    public T removeFirst(){
+    public T removeFirst() {
         TNode item = sentinel.next;
         sentinel.next.next.prev = sentinel;
         sentinel.next = sentinel.next.next;
@@ -60,7 +60,7 @@ public class LinkedListDeque <T> {
         return item.item;
     }
 
-    public T removeLast(){
+    public T removeLast() {
         TNode item = sentinel.prev;
         sentinel.prev.prev.next = sentinel;
         sentinel.prev = sentinel.prev.prev;
@@ -69,11 +69,11 @@ public class LinkedListDeque <T> {
         return item.item;
     }
 
-    public T get(int index){
+    public T get(int index) {
         int currentIndex = 0;
         TNode copy = sentinel;
-        while(copy.next != null) {
-            if(index == currentIndex) {
+        while (copy.next != null) {
+            if (index == currentIndex) {
                 return copy.item;
             }
             copy = copy.next;
@@ -82,7 +82,7 @@ public class LinkedListDeque <T> {
         return null;
     }
 
-    public T getRecursive(int index){
+    public T getRecursive(int index) {
         return get(index);
     }
 
