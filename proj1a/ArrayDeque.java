@@ -2,12 +2,12 @@ import java.util.Arrays;
 
 public class ArrayDeque<T> {
 
-    int front;
-    int back;
-    int sentinel;
-    T[] a;
-    int arraySize = 8;
-    int size = 0;
+    private int front;
+    private int back;
+    private int sentinel;
+    private T[] a;
+    private int arraySize = 8;
+    private int size = 0;
 
 
     public ArrayDeque() {
