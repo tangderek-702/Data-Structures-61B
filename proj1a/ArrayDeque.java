@@ -129,13 +129,13 @@ public class ArrayDeque<T> {
             int numCopyElements = this.arraySize - back - 1;
             this.arraySize /= 2;
             if (back != sentinel) {
-            System.arraycopy(this.a, back, aHolder,
-                 arraySize - 1 - (numCopyElements), numCopyElements);
-            back = arraySize - numCopyElements;
+                System.arraycopy(this.a, back, aHolder,
+                        arraySize - 1 - (numCopyElements), numCopyElements);
+                back = arraySize - numCopyElements;
             }
             this.a = aHolder;
         }
-         return lastElement;
+        return lastElement;
     }
     public T get(int index) {
         if (this.size <= index) {
@@ -144,12 +144,12 @@ public class ArrayDeque<T> {
         int curIndex = this.front;
         int count = 0;
         int frontElements = this.front;
-            if (index + 1 > frontElements) {
-                index = index - frontElements;
-                curIndex = this.sentinel;
-            } else {
-                return this.a[this.front - index];
-            }
+        if (index + 1 > frontElements) {
+            index = index - frontElements;
+            curIndex = this.sentinel;
+        } else {
+            return this.a[this.front - index];
+        }
         if (curIndex == this.sentinel) {
             curIndex = this.a.length - 1;
         }
