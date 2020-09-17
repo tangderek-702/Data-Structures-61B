@@ -63,6 +63,11 @@ public class ArrayDeque<T> {
         if (this.size == 0) {
             front = back;
         }
+
+        if (this.back == 0) {
+            this.back = this.arraySize - 1;
+        }
+
         a[back] = item;
         size++;
     }
@@ -91,7 +96,7 @@ public class ArrayDeque<T> {
         this.front--;
 
         if (this.front == 0) {
-            this.front = 7;
+            this.front = this.arraySize - 1;
         }
 
         double ratio  = (double) this.size / (double) this.arraySize;
@@ -158,7 +163,7 @@ public class ArrayDeque<T> {
         }
 
         if (curIndex == 0) {
-            curIndex = 7;
+            curIndex = this.arraySize - 1;
         }
 
         return this.a[curIndex];

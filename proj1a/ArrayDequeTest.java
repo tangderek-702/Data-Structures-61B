@@ -1,20 +1,35 @@
 public class ArrayDequeTest {
     public static void sanityTest() {
-        ArrayDeque<Integer> lld1 = new ArrayDeque<Integer>();
+        ArrayDeque<Integer> a = new ArrayDeque<Integer>();
 
-        lld1.addFirst(0);
-        lld1.addLast(1);
-        int rem2 = lld1.removeFirst();
-        lld1.addLast(3);
-        lld1.addLast(4);
-        int rem = lld1.removeFirst();
-        lld1.addLast(6);
-        int x = lld1.get(2);
+        a.addFirst(0);
+        int smd = a.get(0);
+        int x = a.removeFirst();
+        a.addFirst(3);
+        int y = a.removeLast();
+        a.addLast(5);
+        a.addFirst(6);
+        a.addFirst(7);
+        a.addLast(8);
+        a.addLast(9);
+        int rem = a.removeLast();
+        int rem1 = a.removeLast();
+        int rem2 = a.removeLast();
+        int rem3 = a.removeLast();
+        int b = a.get(0);
+        int c = a.get(0);
+        a.addLast(16);
+        a.addLast(17);
+        a.addFirst(18);
+        int d = a.get(3);
 
-        lld1.printDeque();
+        a.printDeque();
     }
 
     public static void main(String[] args) {
         sanityTest();
     }
 }
+
+
+
