@@ -167,7 +167,7 @@ public class ArrayDeque<T> {
         int count = 0;
 
         if (curIndex < 0) {
-            curIndex = curIndex + this.size;
+            curIndex = curIndex + this.arraySize - 1;
         }
 
         if (curIndex == 0) {
