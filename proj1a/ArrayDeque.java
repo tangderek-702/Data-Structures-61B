@@ -33,13 +33,14 @@ public class ArrayDeque<T> {
             this.a = aHolder;
         }
         if (front + 1 == a.length) {
-            front = 0;
+            front = 1;
         } else {
             front++;
         }
         a[front] = item;
         size++;
     }
+
     public void addLast(T item) {
         if (this.size + 1 == this.a.length) {
             // perform resizing operation
@@ -138,12 +139,24 @@ public class ArrayDeque<T> {
         return lastElement;
     }
     public T get(int index) {
+
         if (this.size <= index) {
             return null;
         }
-        int curIndex = this.front;
+        int curIndex = this.front - index;
         int count = 0;
-        int frontElements = this.front;
+
+        if (curIndex < 0) {
+            curIndex = curIndex + this.size;
+        }
+
+        if (curIndex == 0) {
+            curIndex = 7;
+        }
+
+        return this.a[curIndex];
+
+        /**
         if (index + 1 > frontElements) {
             index = index - frontElements;
             curIndex = this.sentinel;
@@ -154,6 +167,7 @@ public class ArrayDeque<T> {
             curIndex = this.a.length - 1;
         }
         return this.a[curIndex - index];
+        */
     }
 }
 
