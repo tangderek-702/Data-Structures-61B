@@ -32,10 +32,14 @@ public class ArrayDeque<T> {
             }
             this.a = aHolder;
         }
-        if (front + 1 == a.length) {
+
+        if (front + 1 == a.length || this.front == this.sentinel) {
             front = 1;
         } else {
             front++;
+        }
+        if (this.size == 0) {
+            back = front;
         }
         a[front] = item;
         size++;
@@ -55,7 +59,7 @@ public class ArrayDeque<T> {
             this.a = aHolder;
         }
 
-        if (back - 1 == -1) {
+        if (this.back == this.sentinel + 1 || this.back == this.sentinel) {
             back = a.length - 1;
         } else {
             back--;
@@ -63,11 +67,11 @@ public class ArrayDeque<T> {
         if (this.size == 0) {
             front = back;
         }
-
+        /**
         if (this.back == 0) {
             this.back = this.arraySize - 1;
         }
-
+        */
         a[back] = item;
         size++;
     }
@@ -89,15 +93,17 @@ public class ArrayDeque<T> {
         if (this.back == this.sentinel && this.front == this.sentinel) {
             return null;
         }
-        if (this.front == this.sentinel) {
-            this.front = this.a.length - 1;
-        }
         T firstElement = this.a[this.front];
-        this.front--;
-
+        if (this.front == this.sentinel + 1 || this.front == this.sentinel) {
+            this.front = this.a.length - 1;
+        } else {
+            this.front--;
+        }
+        /**
         if (this.front == 0) {
             this.front = this.arraySize - 1;
         }
+         */
 
         double ratio  = (double) this.size / (double) this.arraySize;
         if (ratio <= 0.25 && this.arraySize > 8) {
@@ -112,7 +118,8 @@ public class ArrayDeque<T> {
             this.a = aHolder;
 
         }
-        size--;
+        this.size--;
+
         if (this.size == 0) {
             this.front = this.sentinel;
             this.back = this.sentinel;
@@ -125,11 +132,12 @@ public class ArrayDeque<T> {
         if (this.back == this.sentinel && this.front == this.sentinel) {
             return null;
         }
-        if (this.back == this.sentinel || this.back == this.a.length) {
-            this.back = this.sentinel + 1;
-        }
         T lastElement = this.a[this.back];
-        back++;
+        if (this.back == this.sentinel || this.back == this.a.length - 1) {
+            this.back = this.sentinel + 1;
+        } else {
+            back++;
+        }
         this.size--;
 
         if (this.size == 0) {
