@@ -1,0 +1,65 @@
+All questions are optional, though try to answer at least 4. The main goal of this file is to get you thinking critically about your own work, but we will also use these self reflections at the end of the semester when we do our internal review of the course.
+
+ArrayDeque:
+
+Q: Give an example of at least one idea from the staff solution that would have made your solution better (if any).
+
+A: 
+
+Q: What's something you felt proud of in your code, if anything?
+
+A: 
+
+Q: What's something that was particularly inelegant in your code, if anything?
+
+A: My add/remove methods had to take into consideration a bunch of weird edge cases and it felt like I was putting 
+a lot of bandaids on my code.
+
+Q: What did you learn by talking to your partner about writing ArrayDeque?
+
+A: Making the front and last pointers set to the middle of the array deque made the implementation a lot more straightforward.
+
+Q: What do you wish you would have known before writing ArrayDeque, if anything?
+
+A:I wish I spent more time planning/ designing my approach to coding the data structure. It would've made debugging a lot easier and I wouldn't have had as many small issues.
+
+Q: If you wrote ArrayDeque again, what would you do differently, if anything?
+
+A: I would not use a sentinel for this arraydeque. I did it at first because it made resizing easier for me, but I realized that it made basically everything else more difficult.
+
+-----
+
+LinkedListDeque:
+
+Q: Give an example of at least one idea from the staff solution that would have made your solution better (if any).
+
+A: 
+
+Q: What's something you felt proud of in your code, if anything?
+
+A:I was happy that I was able to make my LL circular with the sentinel node. 
+
+Q: What's something that was particularly inelegant in your code, if anything?
+
+A:I couldn't figure out how to do the getRecursive so I just called get() :)
+
+Q: What did you learn by talking to your partner about writing LinkedListDeque?
+
+A: 
+
+Q: What do you wish you would have known before writing LinkedListDeque, if anything?
+
+A:I wish I spent more time planning/ designing my approach to coding the data structure. It would've made debugging a lot easier and I wouldn't have had as many small issues.
+
+Q: If you wrote LinkedListDeque again, what would you do differently, if anything?
+
+A: I might try it again without the circular sentinel node and see how it would've been different.
+
+-----
+
+Meta:
+
+Q: Did you like this design review process? Anything we should do differently next time?
+
+A: Yes, this was a really good process. It's nice to be able to discuss out approaches and think about how we could improve upon certain techniques 
+in the future.
