@@ -54,10 +54,14 @@ public class ArrayDeque<T> {
             }
             this.a = aHolder;
         }
+
         if (back - 1 == -1) {
             back = a.length - 1;
         } else {
             back--;
+        }
+        if (this.size == 0) {
+            front = back;
         }
         a[back] = item;
         size++;
