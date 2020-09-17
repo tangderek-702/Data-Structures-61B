@@ -57,7 +57,7 @@ public class LinkedListDeque<T> {
         sentinel.next = sentinel.next.next;
         item.next = null;
         item.prev = null;
-        this.size --;
+        this.size--;
         return item.item;
     }
 
@@ -67,7 +67,7 @@ public class LinkedListDeque<T> {
         sentinel.prev = sentinel.prev.prev;
         item.prev = null;
         item.next = null;
-        this.size --;
+        this.size--;
         return item.item;
     }
 
@@ -75,7 +75,7 @@ public class LinkedListDeque<T> {
         int currentIndex = 0;
         TNode copy = sentinel;
         while (copy.next != null) {
-            if (index == currentIndex) {
+            if (index + 1 == currentIndex) {
                 return copy.item;
             }
             copy = copy.next;
