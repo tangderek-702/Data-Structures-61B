@@ -90,9 +90,8 @@ public class ArrayDeque<T> {
         T firstElement = this.a[this.front];
         this.front--;
 
-        if (this.size == 0) {
-            this.front = this.sentinel;
-            this.back = this.sentinel;
+        if (this.front == 0) {
+            this.front = 7;
         }
 
         double ratio  = (double) this.size / (double) this.arraySize;
@@ -109,6 +108,10 @@ public class ArrayDeque<T> {
 
         }
         size--;
+        if (this.size == 0) {
+            this.front = this.sentinel;
+            this.back = this.sentinel;
+        }
 
         return firstElement;
     }
