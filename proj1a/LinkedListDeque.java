@@ -43,7 +43,7 @@ public class LinkedListDeque<T> {
         return size;
     }
 
-    public void printDeque(){
+    public void printDeque() {
         TNode ptr = this.sentinel.next;
         while(ptr.next != null && ptr != this.sentinel) {
             System.out.println(ptr.item);
@@ -85,5 +85,4 @@ public class LinkedListDeque<T> {
     public T getRecursive(int index) {
         return get(index);
     }
-
 }

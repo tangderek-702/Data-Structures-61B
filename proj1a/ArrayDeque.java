@@ -154,7 +154,6 @@ public class ArrayDeque<T> {
             curIndex = this.a.length - 1;
         }
         return this.a[curIndex - index];
-
     }
-
 }
+
