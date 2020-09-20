@@ -29,7 +29,7 @@ public class TestPalindrome {
     public void testIsPalindromeObo() {
         OffByOne obo = new OffByOne();
         assertTrue(palindrome.isPalindrome("f", obo));
-        assertTrue(palindrome.isPalindrome("",obo));
+        assertTrue(palindrome.isPalindrome("", obo));
         assertTrue(palindrome.isPalindrome("racecar", null));
         assertTrue(palindrome.isPalindrome("flake", obo));
         assertTrue(palindrome.isPalindrome("dabc", obo));
