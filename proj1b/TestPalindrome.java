@@ -28,7 +28,7 @@ public class TestPalindrome {
         OffByOne obo = new OffByOne();
         assertEquals(palindrome.isPalindrome("hello", obo), false);
         assertEquals(palindrome.isPalindrome("rbcecar", obo), true);
-        assertEquals(palindrome.isPalindrome("haqrah", obo), true);
+        assertEquals(palindrome.isPalindrome("gbrrah", obo), true);
 
     }
 }

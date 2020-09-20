@@ -2,21 +2,21 @@ public class Palindrome {
     public Deque<Character> wordToDeque(String word) {
         Deque<Character> holder = new LinkedListDeque<>();
         char[] stringArray = word.toCharArray();
-        for (char a: stringArray){
+        for (char a: stringArray) {
             holder.addLast(a);
         }
         return holder;
     }
 
     public boolean isPalindrome(String word) {
+        if (word == null) {
+            return false;
+        }
         Deque<Character> wordHolder = wordToDeque(word);
         return isPalindromeHelper(wordHolder);
     }
 
     private boolean isPalindromeHelper(Deque deck) {
-        if (deck == null){
-            return false;
-        }
         if (deck.size() == 0 || deck.size() == 1) {
             return true;
         }
@@ -27,20 +27,20 @@ public class Palindrome {
         }
     }
 
-    public boolean isPalindrome(String word, CharacterComparator comp) {
-        Deque<Character> wordHolder = wordToDeque(word);
-        return isPalindromeHelper(wordHolder, comp);
-    }
-
-    private boolean isPalindromeHelper(Deque deck,CharacterComparator comp){
-        if (deck == null){
+    public boolean isPalindrome(String word, CharacterComparator cc) {
+        if (word == null) {
             return false;
         }
+        Deque<Character> wordHolder = wordToDeque(word);
+        return isPalindromeHelper(wordHolder, cc);
+    }
+
+    private boolean isPalindromeHelper(Deque deck,CharacterComparator cc) {
         if (deck.size() == 0 || deck.size() == 1) {
             return true;
         }
-        if (comp.equalChars((char) deck.removeFirst(), (char) deck.removeLast())) {
-            return isPalindromeHelper(deck, comp);
+        if (cc.equalChars((char) deck.removeFirst(), (char) deck.removeLast())) {
+            return isPalindromeHelper(deck, cc);
         } else {
             return false;
         }
