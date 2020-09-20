@@ -18,17 +18,20 @@ public class TestPalindrome {
 
     @Test
     public void testIsPalindrome() {
-        assertEquals(palindrome.isPalindrome("%"), true);
-        assertEquals(palindrome.isPalindrome("racecar"), true);
-        assertEquals(palindrome.isPalindrome("harrah"), true);
+        assertTrue(palindrome.isPalindrome("%"));
+        assertTrue(palindrome.isPalindrome("racecar"));
+        assertFalse(palindrome.isPalindrome(null));
+        assertTrue(palindrome.isPalindrome("harrah"));
+        assertTrue(palindrome.isPalindrome(""));
     }
 
     @Test
     public void testIsPalindromeObo() {
         OffByOne obo = new OffByOne();
-        assertEquals(palindrome.isPalindrome("hello", obo), false);
-        assertEquals(palindrome.isPalindrome("rbcecar", obo), true);
-        assertEquals(palindrome.isPalindrome("gbrrah", obo), true);
-
+        assertTrue(palindrome.isPalindrome("f", obo));
+        assertTrue(palindrome.isPalindrome("",obo));
+        assertTrue(palindrome.isPalindrome("racecar", null));
+        assertTrue(palindrome.isPalindrome("flake", obo));
+        assertTrue(palindrome.isPalindrome("dabc", obo));
     }
 }

@@ -31,11 +31,14 @@ public class Palindrome {
         if (word == null) {
             return false;
         }
+        if (cc == null) {
+            return isPalindrome(word);
+        }
         Deque<Character> wordHolder = wordToDeque(word);
         return isPalindromeHelper(wordHolder, cc);
     }
 
-    private boolean isPalindromeHelper(Deque deck,CharacterComparator cc) {
+    private boolean isPalindromeHelper(Deque deck, CharacterComparator cc) {
         if (deck.size() == 0 || deck.size() == 1) {
             return true;
         }
