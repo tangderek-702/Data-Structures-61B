@@ -13,7 +13,7 @@ public class GuitarString {
 
     /* Create a guitar string of the given frequency.  */
     public GuitarString(double frequency) {
-        buffer = new ArrayRingBuffer<Double>((int) Math.round(SR/frequency));
+        buffer = new ArrayRingBuffer<Double>((int) Math.round(SR / frequency));
         for (int i = 0; i < buffer.capacity(); i++) {
             buffer.enqueue(0.00);
         }
@@ -40,7 +40,7 @@ public class GuitarString {
      */
     public void tic() {
         double holdFront = buffer.dequeue();
-        double avgByDecay = ((holdFront+ buffer.peek())/2) * DECAY;
+        double avgByDecay = ((holdFront + buffer.peek()) / 2) * DECAY;
         buffer.enqueue(avgByDecay);
     }
 
