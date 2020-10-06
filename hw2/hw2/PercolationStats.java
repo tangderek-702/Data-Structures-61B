@@ -5,7 +5,7 @@ import edu.princeton.cs.introcs.StdStats;
 public class PercolationStats {
     private double[] record;
     private double size;
-    private int T;
+    private double T;
 
     public PercolationStats(int N, int T, PercolationFactory pf) {
         if (N <= 0 || T <= 0) {
@@ -19,13 +19,13 @@ public class PercolationStats {
         for (int i = 0; i < T; i++) {
             count = 0;
             Percolation perc = pf.make(N);
-            while(!perc.percolates()) {
+            while (!perc.percolates()) {
                 int randRow = StdRandom.uniform(0, N);
                 int randCol = StdRandom.uniform(0, N);
                 try {
                     perc.open(randRow, randCol);
                     count++;
-                } catch (Exception e) {
+                } catch (IllegalArgumentException e) {
                     continue;
                 }
             }
@@ -48,12 +48,18 @@ public class PercolationStats {
     public double confidenceHigh() {
         return mean() + 1.96 * (stddev() / (Math.sqrt(T)));
     }
-/*
+
     public static void main(String[] args) {
         PercolationFactory perc = new PercolationFactory();
-        PercolationStats test = new PercolationStats(20,10, perc);
-        System.out.println(test.stddev());
-    }
+        PercolationFactory percy = new PercolationFactory();
 
- */
+        PercolationStats test = new PercolationStats(2,10000, perc);
+        PercolationStats test1 = new PercolationStats(50,5, percy);
+
+        System.out.println(test.mean());
+        System.out.println(test.stddev());
+
+        //System.out.println(test1.mean());
+        //System.out.println(test1.stddev());
+    }
 }

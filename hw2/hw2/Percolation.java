@@ -27,12 +27,13 @@ public class Percolation {
 
     private void virtualConnection() {
         //connect virtual bottom
-        for (int i = size * size - size; i < size * size; i++)
+        for (int i = size * size - size; i < size * size; i++) {
             percGraph.union(virtualBot, i);
+        }
     }
 
     private void indexCheck(int row, int col) {
-        if(row > size || row < 0 || col > size || col < 0) {
+        if (row > size || row < 0 || col > size || col < 0) {
             throw new java.lang.IndexOutOfBoundsException();
         }
     }
@@ -54,7 +55,7 @@ public class Percolation {
             percGraph.union(virtualTop, index);
         }
 
-        if (percArray1d[index] == false) {
+        if (!percArray1d[index]) {
             percArray1d[index] = true;
             count++;
             //bottom row
@@ -69,13 +70,13 @@ public class Percolation {
             if (row + 1 < size && isOpen(row + 1, col)) {
                 percGraph.union(index, indexTranslate(row + 1, col));
             }
-            if (row - 1 >= 0 && isOpen(row - 1, col)){
+            if (row - 1 >= 0 && isOpen(row - 1, col)) {
                 percGraph.union(index, indexTranslate(row - 1, col));
             }
-            if (col + 1 < size && isOpen(row, col + 1)){
+            if (col + 1 < size && isOpen(row, col + 1)) {
                 percGraph.union(index, indexTranslate(row, col + 1));
             }
-            if (col - 1 >= 0 && isOpen(row, col -1)) {
+            if (col - 1 >= 0 && isOpen(row, col - 1)) {
                 percGraph.union(index, indexTranslate(row, col - 1));
             }
         } else {
@@ -83,10 +84,10 @@ public class Percolation {
         }
     }
 
-    public boolean isOpen (int row, int col) {
+    public boolean isOpen(int row, int col) {
         indexCheck(row, col);
         int index = indexTranslate(row, col);
-        if (percArray1d[index] == true) {
+        if (percArray1d[index]) {
             return true;
         }
         return false;
@@ -96,11 +97,7 @@ public class Percolation {
         indexCheck(row, col);
         int index = indexTranslate(row, col);
         if (index < size) {
-            if (isOpen(row, col)) {
-                return true;
-            } else {
-                return false;
-            }
+            return isOpen(row, col);
         }
         if (percGraph.connected(virtualTop, index)) {
             return true;
@@ -113,7 +110,7 @@ public class Percolation {
     }
 
     public boolean percolates() {
-        if (percGraph.connected(virtualTop, virtualBot)){
+        if (percGraph.connected(virtualTop, virtualBot)) {
             return true;
         }
         return false;
@@ -128,14 +125,14 @@ public class Percolation {
 
         /*
         System.out.println();
-        test.open(1,2);
-        test.open(2,1);
-        System.out.println(test.isFull(2,1));
-        System.out.println(test.isFull(0,1));
+        test.open(1, 2);
+        test.open(2, 1);
+        System.out.println(test.isFull(2, 1));
+        System.out.println(test.isFull(0, 1));
         System.out.println(test.percolates());
-        test.open(1,1);
+        test.open(1, 1);
         System.out.println(test.percolates());
-        System.out.println(test.isFull(2,1));
+        System.out.println(test.isFull(2, 1));
          */
     }
 
