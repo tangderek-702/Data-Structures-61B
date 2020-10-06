@@ -8,7 +8,7 @@ public class PercolationStats {
     private int T;
 
     public PercolationStats(int N, int T, PercolationFactory pf) {
-        if (N < 0 || T < 0) {
+        if (N <= 0 || T <= 0) {
             throw new IllegalArgumentException();
         }
 
@@ -48,4 +48,12 @@ public class PercolationStats {
     public double confidenceHigh() {
         return mean() + 1.96 * (stddev() / (Math.sqrt(T)));
     }
+/*
+    public static void main(String[] args) {
+        PercolationFactory perc = new PercolationFactory();
+        PercolationStats test = new PercolationStats(20,10, perc);
+        System.out.println(test.stddev());
+    }
+
+ */
 }
