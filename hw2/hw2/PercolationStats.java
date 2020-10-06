@@ -4,11 +4,11 @@ import edu.princeton.cs.introcs.StdStats;
 
 public class PercolationStats {
     private double[] record;
-    private int size;
+    private double size;
     private int T;
 
     public PercolationStats(int N, int T, PercolationFactory pf) {
-        if (N > 0 || T > 0) {
+        if (N < 0 || T < 0) {
             throw new IllegalArgumentException();
         }
 

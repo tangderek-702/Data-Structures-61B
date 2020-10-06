@@ -26,10 +26,6 @@ public class Percolation {
     }
 
     private void virtualConnection() {
-        //connect virtual top
-        for (int i = 0; i < size; i++)
-            percGraph.union(virtualTop, i);
-
         //connect virtual bottom
         for (int i = size * size - size; i < size * size; i++)
             percGraph.union(virtualBot, i);
@@ -53,6 +49,10 @@ public class Percolation {
         int rightIndex = index + 1;
         int leftIndex = index - 1;
         indexCheck(row, col);
+
+        if (row == 0) {
+            percGraph.union(virtualTop, index);
+        }
 
         if (percArray1d[index] == false) {
             percArray1d[index] = true;
@@ -84,6 +84,7 @@ public class Percolation {
     }
 
     public boolean isOpen (int row, int col) {
+        indexCheck(row, col);
         int index = indexTranslate(row, col);
         if (percArray1d[index] == true) {
             return true;
@@ -92,6 +93,7 @@ public class Percolation {
     }
 
     public  boolean isFull(int row, int col) {
+        indexCheck(row, col);
         int index = indexTranslate(row, col);
         if (index < size) {
             if (isOpen(row, col)) {
@@ -120,8 +122,9 @@ public class Percolation {
     public static void main(String[] args) {
         Percolation test = new Percolation(3);
 
-        System.out.println(test.isFull(0,0));
-
+        System.out.println(test.isFull(0,2));
+        test.open(0,2);
+        System.out.println(test.isFull(0,2));
 
         /*
         System.out.println();
