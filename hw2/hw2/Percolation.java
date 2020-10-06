@@ -111,7 +111,7 @@ public class Percolation {
             return isOpen(row, col);
         }
         //everything else
-        if (specialPercGraph.connected(virtualTop, index) && isOpen(row,col)) {
+        if (specialPercGraph.connected(virtualTop, index) && isOpen(row, col)) {
             return true;
         }
         return false;
@@ -129,24 +129,24 @@ public class Percolation {
         return false;
     }
 
-    public static void main(String[] args) {
-        Percolation test = new Percolation(3);
-
-        System.out.println(test.isFull(0, 2));
-        test.open(0, 2);
-        System.out.println(test.isFull(0, 2));
-
-        /*
-        System.out.println();
-        test.open(1, 2);
-        test.open(2, 1);
-        System.out.println(test.isFull(2, 1));
-        System.out.println(test.isFull(0, 1));
-        System.out.println(test.percolates());
-        test.open(1, 1);
-        System.out.println(test.percolates());
-        System.out.println(test.isFull(2, 1));
-         */
-    }
+//    public static void main(String[] args) {
+//        Percolation test = new Percolation(3);
+//
+//        System.out.println(test.isFull(0, 2));
+//        test.open(0, 2);
+//        System.out.println(test.isFull(0, 2));
+//
+//        /*
+//        System.out.println();
+//        test.open(1, 2);
+//        test.open(2, 1);
+//        System.out.println(test.isFull(2, 1));
+//        System.out.println(test.isFull(0, 1));
+//        System.out.println(test.percolates());
+//        test.open(1, 1);
+//        System.out.println(test.percolates());
+//        System.out.println(test.isFull(2, 1));
+//         */
+//    }
 
 }

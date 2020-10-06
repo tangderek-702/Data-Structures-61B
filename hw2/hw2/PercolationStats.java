@@ -44,20 +44,20 @@ public class PercolationStats {
         return mean() + 1.96 * stddev() / (Math.sqrt(T));
     }
 
-    public static void main(String[] args) {
-        PercolationFactory perc = new PercolationFactory();
-        PercolationFactory percy = new PercolationFactory();
-
-        PercolationStats test = new PercolationStats(20, 10, perc);
-        PercolationStats test1 = new PercolationStats(50, 5, percy);
-        //why doesn't output from tests match autograder
-        //what does the static error mean
-        //when n = 2 and T = 10000
-
-        System.out.println(test.mean());
-        System.out.println(test.stddev());
-
-        //System.out.println(test1.mean());
-        //System.out.println(test1.stddev());
-    }
+//    public static void main(String[] args) {
+//        PercolationFactory perc = new PercolationFactory();
+//        PercolationFactory percy = new PercolationFactory();
+//
+//        PercolationStats test = new PercolationStats(20, 10, perc);
+//        PercolationStats test1 = new PercolationStats(50, 5, percy);
+//        //why doesn't output from tests match autograder
+//        //what does the static error mean
+//        //when n = 2 and T = 10000
+//
+//        System.out.println(test.mean());
+//        System.out.println(test.stddev());
+//
+//        //System.out.println(test1.mean());
+//        //System.out.println(test1.stddev());
+//    }
 }
