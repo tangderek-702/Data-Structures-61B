@@ -22,14 +22,9 @@ public class PercolationStats {
             while (!perc.percolates()) {
                 int randRow = StdRandom.uniform(0, N);
                 int randCol = StdRandom.uniform(0, N);
-                try {
-                    perc.open(randRow, randCol);
-                    count++;
-                } catch (IllegalArgumentException e) {
-                    continue;
-                }
+                perc.open(randRow, randCol);
             }
-            record[i] = count / (size * size);
+            record[i] = perc.numberOfOpenSites() / (size * size);
         }
     }
 
@@ -42,19 +37,22 @@ public class PercolationStats {
     }
 
     public double confidenceLow() {
-        return mean() - 1.96 * (stddev() / (Math.sqrt(T)));
+        return mean() - 1.96 * stddev() / (Math.sqrt(T));
     }
 
     public double confidenceHigh() {
-        return mean() + 1.96 * (stddev() / (Math.sqrt(T)));
+        return mean() + 1.96 * stddev() / (Math.sqrt(T));
     }
 
     public static void main(String[] args) {
         PercolationFactory perc = new PercolationFactory();
         PercolationFactory percy = new PercolationFactory();
 
-        PercolationStats test = new PercolationStats(2,10000, perc);
-        PercolationStats test1 = new PercolationStats(50,5, percy);
+        PercolationStats test = new PercolationStats(20, 10, perc);
+        PercolationStats test1 = new PercolationStats(50, 5, percy);
+        //why doesn't output from tests match autograder
+        //what does the static error mean
+        //when n = 2 and T = 10000
 
         System.out.println(test.mean());
         System.out.println(test.stddev());

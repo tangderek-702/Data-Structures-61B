@@ -79,8 +79,6 @@ public class Percolation {
             if (col - 1 >= 0 && isOpen(row, col - 1)) {
                 percGraph.union(index, indexTranslate(row, col - 1));
             }
-        } else {
-            throw new IllegalArgumentException();
         }
     }
 
@@ -119,9 +117,9 @@ public class Percolation {
     public static void main(String[] args) {
         Percolation test = new Percolation(3);
 
-        System.out.println(test.isFull(0,2));
-        test.open(0,2);
-        System.out.println(test.isFull(0,2));
+        System.out.println(test.isFull(0, 2));
+        test.open(0, 2);
+        System.out.println(test.isFull(0, 2));
 
         /*
         System.out.println();
