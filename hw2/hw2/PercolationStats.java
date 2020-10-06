@@ -3,11 +3,15 @@ import edu.princeton.cs.introcs.StdRandom;
 import edu.princeton.cs.introcs.StdStats;
 
 public class PercolationStats {
-    double[] record;
-    int size;
-    int T;
+    private double[] record;
+    private int size;
+    private int T;
 
     public PercolationStats(int N, int T, PercolationFactory pf) {
+        if (N > 0 || T > 0) {
+            throw new IllegalArgumentException();
+        }
+
         double count;
         size = N;
         this.T = T;
@@ -15,11 +19,11 @@ public class PercolationStats {
         for (int i = 0; i < T; i++) {
             count = 0;
             Percolation perc = pf.make(N);
-            while(!perc.percolates()){
+            while(!perc.percolates()) {
                 int randRow = StdRandom.uniform(0, N);
                 int randCol = StdRandom.uniform(0, N);
                 try {
-                    perc.open(randRow,randCol);
+                    perc.open(randRow, randCol);
                     count++;
                 } catch (Exception e) {
                     continue;
@@ -30,11 +34,7 @@ public class PercolationStats {
     }
 
     public double mean() {
-        double sum = 0;
-        for(double trial: record) {
-            sum = sum + trial;
-        }
-        return sum / T;
+        return StdStats.mean(record);
     }
 
     public double stddev() {
@@ -42,10 +42,10 @@ public class PercolationStats {
     }
 
     public double confidenceLow() {
-        return mean() - 1.96 * (stddev()/(Math.sqrt(T)));
+        return mean() - 1.96 * (stddev() / (Math.sqrt(T)));
     }
 
     public double confidenceHigh() {
-        return mean() + 1.96 * (stddev()/(Math.sqrt(T)));
+        return mean() + 1.96 * (stddev() / (Math.sqrt(T)));
     }
 }

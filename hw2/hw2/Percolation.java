@@ -4,12 +4,12 @@ import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 public class Percolation {
 
-    boolean[] percArray1d; //false- closed, true- open
-    WeightedQuickUnionUF percGraph;
-    int size;
-    int count;
-    int virtualTop;
-    int virtualBot;
+    private boolean[] percArray1d; //false- closed, true- open
+    private WeightedQuickUnionUF percGraph;
+    private int size;
+    private int count;
+    private int virtualTop;
+    private int virtualBot;
 
     public Percolation(int N) {
         if (N <= 0) {
@@ -93,6 +93,13 @@ public class Percolation {
 
     public  boolean isFull(int row, int col) {
         int index = indexTranslate(row, col);
+        if (index < size) {
+            if (isOpen(row, col)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
         if (percGraph.connected(virtualTop, index)) {
             return true;
         }
@@ -112,11 +119,8 @@ public class Percolation {
 
     public static void main(String[] args) {
         Percolation test = new Percolation(3);
-        test.open(0,0);
-        test.open(1,0);
-        test.open(2,0);
-        test.open(2,2);
-        System.out.println(test.isFull(2,2));
+
+        System.out.println(test.isFull(0,0));
 
 
         /*
