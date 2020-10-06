@@ -6,6 +6,7 @@ public class Percolation {
 
     private boolean[] percArray1d; //false- closed, true- open
     private WeightedQuickUnionUF percGraph;
+    private WeightedQuickUnionUF specialPercGraph;
     private int size;
     private int count;
     private int virtualTop;
@@ -21,12 +22,12 @@ public class Percolation {
         this.virtualBot = N * N;
         this.virtualTop = N * N + 1;
         this.percGraph = new WeightedQuickUnionUF(N * N + 2);
+        this.specialPercGraph = new WeightedQuickUnionUF(N * N + 2);
         virtualConnection();
-
     }
 
     private void virtualConnection() {
-        //connect virtual bottom
+        //connect virtual bottom to standard
         for (int i = size * size - size; i < size * size; i++) {
             percGraph.union(virtualBot, i);
         }
@@ -51,10 +52,15 @@ public class Percolation {
         int leftIndex = index - 1;
         indexCheck(row, col);
 
+        //if opening first row then fill
+        /*
         if (row == 0) {
             percGraph.union(virtualTop, index);
         }
+         */
 
+
+        //connects standard and special
         if (!percArray1d[index]) {
             percArray1d[index] = true;
             count++;
@@ -63,21 +69,26 @@ public class Percolation {
                 percGraph.union(virtualBot, index);
             }
             //top row
-            if (row == 1) {
+            if (row == 0) {
                 percGraph.union(virtualTop, index);
+                specialPercGraph.union(virtualTop, index);
             }
             //Check for adjacent connectivity
             if (row + 1 < size && isOpen(row + 1, col)) {
                 percGraph.union(index, indexTranslate(row + 1, col));
+                specialPercGraph.union(index, indexTranslate(row + 1, col));
             }
             if (row - 1 >= 0 && isOpen(row - 1, col)) {
                 percGraph.union(index, indexTranslate(row - 1, col));
+                specialPercGraph.union(index, indexTranslate(row - 1, col));
             }
             if (col + 1 < size && isOpen(row, col + 1)) {
                 percGraph.union(index, indexTranslate(row, col + 1));
+                specialPercGraph.union(index, indexTranslate(row, col + 1));
             }
             if (col - 1 >= 0 && isOpen(row, col - 1)) {
                 percGraph.union(index, indexTranslate(row, col - 1));
+                specialPercGraph.union(index, indexTranslate(row, col - 1));
             }
         }
     }
@@ -92,12 +103,15 @@ public class Percolation {
     }
 
     public  boolean isFull(int row, int col) {
+        //uses special graph
         indexCheck(row, col);
         int index = indexTranslate(row, col);
+        //top row
         if (index < size) {
             return isOpen(row, col);
         }
-        if (percGraph.connected(virtualTop, index)) {
+        //everything else
+        if (specialPercGraph.connected(virtualTop, index) && isOpen(row,col)) {
             return true;
         }
         return false;
@@ -108,6 +122,7 @@ public class Percolation {
     }
 
     public boolean percolates() {
+        //uses standard graph
         if (percGraph.connected(virtualTop, virtualBot)) {
             return true;
         }
