@@ -2,8 +2,9 @@ import java.util.Iterator;
 import java.util.Set;
 
 public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
-    private  Node root;
+    private  Node root = null;
     private int size = 0;
+
     private class Node {
         private K key;
         private V val;
@@ -19,20 +20,18 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
     @Override
     public void clear() {
         root = null;
+        size = 0;
     }
 
     @Override
     public boolean containsKey(K key) {
-        if(key == null) {
-            throw new IllegalArgumentException();
-        }
-        return get(key) != null;
+        return get(root,key) != null;
     }
 
     private Node get(Node x, K key) {
         if (x == null) {
             return null;
-        } else if (x.key.equals(key)) {
+        } else if (x.key.compareTo(key) == 0) {
             return x;
         } else if (x.key.compareTo(key) < 0){
             return get(x.right, key);
@@ -44,7 +43,7 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
     @Override
     public V get(K key) {
         Node result = get(root, key);
-        if(result ==null) {
+        if(result == null) {
             return null;
         } else {
             return result.val;
@@ -58,10 +57,12 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
 
     private Node putHelp(K key, V value, Node n) {
         if (n == null) {
+            size += 1;
             return new Node(key, value);
-        } else if (n.key.equals(key)) {
+        } else if (n.key.compareTo(key) == 0) {
             n.val = value;
         } else if (n.key.compareTo(key) < 0) {
+            size += 1;
             n.right = putHelp(key, value, n.right);
         } else {
             n.left = putHelp(key, value, n.left);
@@ -71,26 +72,25 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
     @Override
     public void put(K key, V value) {
         root = putHelp(key,value,root);
-
     }
 
     @Override
     public Set<K> keySet() {
-        throw new UnsupportedOperationException;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public V remove(K key) {
-        throw new UnsupportedOperationException;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public V remove(K key, V value) {
-        throw new UnsupportedOperationException;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Iterator<K> iterator() {
-        throw new UnsupportedOperationException;
+        throw new UnsupportedOperationException();
     }
 }
