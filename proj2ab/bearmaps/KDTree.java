@@ -65,13 +65,13 @@ public class KDTree implements PointSet {
         }
         best = nearestHelper(goodSide, goal, best);
         if (n.orientation) {
-            if (Math.pow(Math.abs(n.p.getX() - goal.getX()), 2) -
-                    Point.distance(best.p, goal) < 0) {
+            if (Math.pow(Math.abs(n.p.getX() - goal.getX()), 2)
+                    - Point.distance(best.p, goal) < 0) {
                 best = nearestHelper(badSide, goal, best);
             }
         } else {
-            if (Math.pow(Math.abs(n.p.getY() - goal.getY()), 2) -
-                    Point.distance(best.p, goal) < 0) {
+            if (Math.pow(Math.abs(n.p.getY() - goal.getY()), 2)
+                    - Point.distance(best.p, goal) < 0) {
                 best = nearestHelper(badSide, goal, best);
             }
         }
