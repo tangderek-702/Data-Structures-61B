@@ -20,7 +20,7 @@ public class NaivePointSet implements PointSet {
         Point pointVirtual = new Point(x,y);
         for (Point p: myPoints) {
             double currentDistance = Point.distance(p, pointVirtual);
-            if(currentDistance < Point.distance(best,pointVirtual) ) {
+            if (currentDistance < Point.distance(best, pointVirtual)) {
                 best = p;
             }
         }

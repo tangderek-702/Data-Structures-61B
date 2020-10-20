@@ -3,25 +3,24 @@ import java.util.List;
 
 public class KDTree implements PointSet {
     private Node root;
-    private static final boolean horizontal = false;
-    private static final boolean vertical = true;
+    private static final boolean HORIZONTAL = false;
+    private static final boolean VERTICAL = true;
 
-    private class Node{
+    private class Node {
         private Point p;
         private boolean orientation;
         private Node leftChild = null;  //down child
         private Node rightChild = null; //up child
 
-        public Node(Point p, boolean orientation) {
+        Node(Point p, boolean orientation) {
             this.p = p;
             this.orientation = orientation;
         }
     }
 
-
     public KDTree(List<Point> points) {
-        for(Point p: points) {
-            root = add(p, root, horizontal);
+        for (Point p: points) {
+            root = add(p, root, HORIZONTAL);
         }
     }
 
@@ -32,7 +31,7 @@ public class KDTree implements PointSet {
         if (p.equals(n.p)) {
             return n;
         }
-        if(comparePoints(p, n.p, orientation) < 0) {
+        if (comparePoints(p, n.p, orientation) < 0) {
             n.leftChild = add(p, n.leftChild, !orientation);
         } else if (comparePoints(p, n.p, orientation) >= 0) {
             n.rightChild = add(p, n.rightChild, !orientation);
@@ -41,8 +40,8 @@ public class KDTree implements PointSet {
     }
 
     private double comparePoints(Point a, Point b, boolean orientation) {
-        if (orientation == horizontal) {
-            return Double.compare(a.getX(),b.getX());
+        if (orientation == HORIZONTAL) {
+            return Double.compare(a.getX(), b.getX());
         } else {
             return Double.compare(a.getY(), b.getY());
         }
@@ -57,7 +56,7 @@ public class KDTree implements PointSet {
         if (Point.distance(n.p, goal) < Point.distance(best.p, goal)) {
             best = n;
         }
-        if (comparePoints(goal,n.p,n.orientation) < 0) {
+        if (comparePoints(goal, n.p, n.orientation) < 0) {
             goodSide = n.leftChild;
             badSide = n.rightChild;
         } else {
@@ -66,11 +65,13 @@ public class KDTree implements PointSet {
         }
         best = nearestHelper(goodSide, goal, best);
         if (n.orientation) {
-            if (Math.pow(Math.abs(n.p.getX() - goal.getX()), 2) - Point.distance(best.p, goal) < 0) {
+            if (Math.pow(Math.abs(n.p.getX() - goal.getX()), 2) -
+                    Point.distance(best.p, goal) < 0) {
                 best = nearestHelper(badSide, goal, best);
             }
         } else {
-            if (Math.pow(Math.abs(n.p.getY() - goal.getY()), 2) - Point.distance(best.p, goal) < 0) {
+            if (Math.pow(Math.abs(n.p.getY() - goal.getY()), 2) -
+                    Point.distance(best.p, goal) < 0) {
                 best = nearestHelper(badSide, goal, best);
             }
         }
@@ -79,7 +80,7 @@ public class KDTree implements PointSet {
 
     @Override
     public Point nearest(double x, double y) {
-        Point goal = new Point(x,y);
+        Point goal = new Point(x, y);
         Node best = nearestHelper(root, goal, root);
         return new Point(best.p.getX(), best.p.getY());
     }
@@ -94,6 +95,6 @@ public class KDTree implements PointSet {
         Point p7 = new Point(4, 4);
 
         KDTree kd = new KDTree(List.of(p1, p2, p3, p4, p5, p6, p7));
-        System.out.println(kd.nearest(1,1));
+        System.out.println(kd.nearest(1, 1));
     }
 }
