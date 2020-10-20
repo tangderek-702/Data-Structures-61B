@@ -1,7 +1,7 @@
 package bearmaps;
 import java.util.List;
 
-public class KdTree implements PointSet {
+public class KDTree implements PointSet {
     private Node root;
     private static final boolean horizontal = false;
     private static final boolean vertical = true;
@@ -19,7 +19,7 @@ public class KdTree implements PointSet {
     }
 
 
-    public KdTree(List<Point> points) {
+    public KDTree(List<Point> points) {
         for(Point p: points) {
             root = add(p, root, horizontal);
         }
@@ -93,7 +93,7 @@ public class KdTree implements PointSet {
         Point p6 = new Point(1, 5);
         Point p7 = new Point(4, 4);
 
-        KdTree kd = new KdTree(List.of(p1, p2, p3, p4, p5, p6, p7));
+        KDTree kd = new KDTree(List.of(p1, p2, p3, p4, p5, p6, p7));
         System.out.println(kd.nearest(1,1));
     }
 }
