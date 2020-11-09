@@ -86,7 +86,7 @@ public class IntList {
             return B;
         }
         IntList restOfA = A;
-        while(restOfA != null){
+        while(restOfA.rest != null){
             restOfA = restOfA.rest;
         }
         restOfA.rest = B;

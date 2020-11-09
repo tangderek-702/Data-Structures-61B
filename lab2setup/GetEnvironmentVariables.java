@@ -1,10 +1,10 @@
 public class GetEnvironmentVariables {
 
     //  Fill in the path to your fa20-s*** folder between the quotes
-    public static String REPO_DIR = "";
+    public static String REPO_DIR = "/Users/derektang/Documents/cs61b/fa20-s1104";
 
     //  Fill in the path to your snaps-fa20-s*** folder between the quotes
-    public static String SNAPS_DIR = "";
+    public static String SNAPS_DIR = "/Users/derektang/Documents/cs61b/fa20-s1104/snaps-fa20-s1104";
 
     public static void main(String[] args) {
 
