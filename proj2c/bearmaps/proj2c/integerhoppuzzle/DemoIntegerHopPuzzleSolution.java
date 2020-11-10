@@ -12,8 +12,8 @@ import bearmaps.proj2c.SolutionPrinter;
  */
 public class DemoIntegerHopPuzzleSolution {
     public static void main(String[] args) {
-        int start = 17;
-        int goal = 111;
+        int start = 6;
+        int goal = 7;
 
         IntegerHopGraph ahg = new IntegerHopGraph();
 

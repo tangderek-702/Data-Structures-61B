@@ -75,7 +75,7 @@ public class AStarSolver<Vertex> implements ShortestPathsSolver<Vertex>{
             //reached end!
             if (fringe.getSmallest().equals(end) && timer.elapsedTime() < timeout) {
                 //construct solution list
-                solution.add(end);
+                //solution.add(end);
                 while (curr != null) {
                     solution.add(curr);
                     curr = edgeTo.get(curr);
@@ -86,11 +86,13 @@ public class AStarSolver<Vertex> implements ShortestPathsSolver<Vertex>{
                 timeSpent = timer.elapsedTime();
                 break;
             }
+
             //time's up
             else if (timer.elapsedTime() >= timeout) {
                 outcome = SolverOutcome.TIMEOUT;
                 break;
             }
+
             //empty fringe
             else if (fringe.size() == 0) {
                 outcome = SolverOutcome.UNSOLVABLE;
