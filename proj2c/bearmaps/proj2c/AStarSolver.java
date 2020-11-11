@@ -10,11 +10,13 @@ public class AStarSolver<Vertex> implements ShortestPathsSolver<Vertex>{
     private double timeSpent;
     private SolverOutcome outcome;
     private List<Vertex> solution;
-    private double solutionWeight;
+    private Vertex end;
 
     private HashMap<Vertex, Double> distTo;
     private HashMap<Vertex, Vertex> edgeTo;
     private DoubleMapPQ<Vertex> fringe;
+
+
 
     private void relax(WeightedEdge<Vertex> e, AStarGraph<Vertex> input, Vertex end) {
         if (input == null) {
@@ -42,6 +44,8 @@ public class AStarSolver<Vertex> implements ShortestPathsSolver<Vertex>{
     public AStarSolver(AStarGraph<Vertex> input, Vertex start, Vertex end, double timeout) {
         Stopwatch timer = new Stopwatch();  //Timer for timeSpent
 
+        this.end = end;
+
         //containers
         solution = new ArrayList<>();
         distTo = new HashMap<>();
@@ -56,36 +60,32 @@ public class AStarSolver<Vertex> implements ShortestPathsSolver<Vertex>{
         fringe.add(start, input.estimatedDistanceToGoal(start, end));
         distTo.put(start, 0.0);
         statesTouched = 0;
-        solutionWeight = 0;
-
 
         while (fringe.size() > 0) {
-            curr = fringe.removeSmallest();
             statesTouched++;
+
+            //HArd code edge case
+            if(start == end) {
+                solution.add(start);
+                outcome = SolverOutcome.SOLVED;
+                timeSpent = timer.elapsedTime();
+                break;
+            }
+
+            curr = fringe.removeSmallest();
             neighbors = input.neighbors(curr);
 
             for (WeightedEdge<Vertex> edge : neighbors) {
-                if (edge.to() != curr) {
+                if (!edge.to().equals(curr)) {
                     relax(edge,input,end);
                 }
             }
 
             //handling cases
 
-            //reached end!
-            if (fringe.getSmallest().equals(end) && timer.elapsedTime() < timeout) {
-                //construct solution list
-                //solution.add(end);
-                curr = fringe.getSmallest();
-                while (!curr.equals(start)) {
-                    solution.add(curr);
-                    curr = edgeTo.get(curr);
-                }
-                solution.add(start);
-                Collections.reverse(solution);
-                solutionWeight = distTo.get(end);
-                outcome = SolverOutcome.SOLVED;
-                timeSpent = timer.elapsedTime();
+            //empty fringe
+            if (fringe.size() == 0) {
+                outcome = SolverOutcome.UNSOLVABLE;
                 break;
             }
 
@@ -95,11 +95,22 @@ public class AStarSolver<Vertex> implements ShortestPathsSolver<Vertex>{
                 break;
             }
 
-            //empty fringe
-            else if (fringe.size() == 0) {
-                outcome = SolverOutcome.UNSOLVABLE;
+            //reached end!
+            else if (fringe.getSmallest().equals(end) && timer.elapsedTime() < timeout) {
+                //construct solution list
+                //solution.add(end);
+                curr = fringe.getSmallest();
+                while (!curr.equals(start)) {
+                    solution.add(curr);
+                    curr = edgeTo.get(curr);
+                }
+                solution.add(start);
+                Collections.reverse(solution);
+                outcome = SolverOutcome.SOLVED;
+                timeSpent = timer.elapsedTime();
                 break;
             }
+
             timeSpent = timer.elapsedTime();    //update time
         }
     }
@@ -118,7 +129,7 @@ public class AStarSolver<Vertex> implements ShortestPathsSolver<Vertex>{
 
     @Override
     public double solutionWeight() {
-        return solutionWeight;
+        return distTo.get(end);
     }
 
     @Override
