@@ -13,7 +13,7 @@ import bearmaps.proj2c.SolutionPrinter;
 public class DemoSlidingPuzzleSolution {
 
     public static void main(String[] args) {
-        Board start = Board.readBoard("BasicPuzzle1.txt");
+        Board start = Board.readBoard("ElitePuzzle3.txt");
         System.out.println(start);
         int N = start.size();
         Board goal = Board.solved(N);

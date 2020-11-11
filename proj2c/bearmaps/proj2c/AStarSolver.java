@@ -5,7 +5,7 @@ import edu.princeton.cs.algs4.Stopwatch;
 
 import java.util.*;
 
-public class AStarSolver<Vertex> implements ShortestPathsSolver<Vertex>{
+public class AStarSolver<Vertex> implements ShortestPathsSolver<Vertex> {
     private int statesTouched;
     private double timeSpent;
     private SolverOutcome outcome;
@@ -18,19 +18,18 @@ public class AStarSolver<Vertex> implements ShortestPathsSolver<Vertex>{
 
 
 
-    private void relax(WeightedEdge<Vertex> e, AStarGraph<Vertex> input, Vertex end) {
+    private void relax(WeightedEdge<Vertex> e, AStarGraph<Vertex> input) {
         if (input == null) {
             return;
         }
         Vertex p = e.from();
         Vertex q = e.to();
         double w = e.weight();
-        if(!distTo.containsKey(q)) {
+        if (!distTo.containsKey(q)) {
             distTo.put(q, distTo.get(p) + w);
-            edgeTo.put(q,e.from());
+            edgeTo.put(q, e.from());
             fringe.add(q, distTo.get(q) + input.estimatedDistanceToGoal(q, end));
-        }
-        else if (distTo.get(p) + w < distTo.get(q)) {
+        } else if (distTo.get(p) + w < distTo.get(q)) {
             distTo.replace(q,distTo.get(p) + w);
             edgeTo.replace(q, p);
             if(fringe.contains(q)) {
@@ -65,7 +64,7 @@ public class AStarSolver<Vertex> implements ShortestPathsSolver<Vertex>{
             statesTouched++;
 
             //HArd code edge case
-            if(start == end) {
+            if (start.equals(end)) {
                 solution.add(start);
                 outcome = SolverOutcome.SOLVED;
                 timeSpent = timer.elapsedTime();
@@ -77,26 +76,21 @@ public class AStarSolver<Vertex> implements ShortestPathsSolver<Vertex>{
 
             for (WeightedEdge<Vertex> edge : neighbors) {
                 if (!edge.to().equals(curr)) {
-                    relax(edge,input,end);
+                    relax(edge, input);
                 }
             }
-
             //handling cases
 
             //empty fringe
             if (fringe.size() == 0) {
                 outcome = SolverOutcome.UNSOLVABLE;
                 break;
-            }
-
             //time's up
-            else if (timer.elapsedTime() >= timeout) {
+            } else if (timer.elapsedTime() >= timeout) {
                 outcome = SolverOutcome.TIMEOUT;
                 break;
-            }
-
             //reached end!
-            else if (fringe.getSmallest().equals(end) && timer.elapsedTime() < timeout) {
+            } else if (fringe.getSmallest().equals(end) && timer.elapsedTime() < timeout) {
                 //construct solution list
                 //solution.add(end);
                 curr = fringe.getSmallest();
@@ -110,12 +104,9 @@ public class AStarSolver<Vertex> implements ShortestPathsSolver<Vertex>{
                 timeSpent = timer.elapsedTime();
                 break;
             }
-
             timeSpent = timer.elapsedTime();    //update time
         }
     }
-
-
 
     @Override
     public SolverOutcome outcome() {
