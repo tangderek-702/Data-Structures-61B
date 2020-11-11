@@ -16,8 +16,6 @@ public class AStarSolver<Vertex> implements ShortestPathsSolver<Vertex> {
     private HashMap<Vertex, Vertex> edgeTo;
     private DoubleMapPQ<Vertex> fringe;
 
-
-
     private void relax(WeightedEdge<Vertex> e, AStarGraph<Vertex> input) {
         if (input == null) {
             return;
@@ -30,9 +28,9 @@ public class AStarSolver<Vertex> implements ShortestPathsSolver<Vertex> {
             edgeTo.put(q, e.from());
             fringe.add(q, distTo.get(q) + input.estimatedDistanceToGoal(q, end));
         } else if (distTo.get(p) + w < distTo.get(q)) {
-            distTo.replace(q,distTo.get(p) + w);
+            distTo.replace(q, distTo.get(p) + w);
             edgeTo.replace(q, p);
-            if(fringe.contains(q)) {
+            if (fringe.contains(q)) {
                 fringe.changePriority(q, distTo.get(q) + input.estimatedDistanceToGoal(q, end));
             } else {
                 fringe.add(q, distTo.get(q) + input.estimatedDistanceToGoal(q, end));
