@@ -26,6 +26,10 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T>{
             this.priority = priority;
         }
 
+        private double getPriority() {
+            return priority;
+        }
+
     }
 
     public ArrayHeapMinPQ(int capacity) {
@@ -59,21 +63,22 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T>{
     }
 
     private int parent(int k) {
-        if(k == 0) return 1;
-        return (k-1) / 2;
+        if(k <= 1) return 1;
+        return k / 2 ;
     }
 
     private int child(int k) {
-        int leftChild = k * 2 + 1;
-        if (leftChild < size()) {
+        int test = size();
+        int leftChild = k * 2 ;
+        if (leftChild > size()) {
             leftChild = k;
         }
-        int rightChild = k * 2 + 2;
-        if (rightChild < size()) {
+        int rightChild = k * 2 + 1;
+        if (rightChild > size()) {
             rightChild = leftChild;
         }
 
-        if (priorityQ[rightChild].priority > priorityQ[leftChild].priority) {
+        if (priorityQ[rightChild].getPriority() > priorityQ[leftChild].getPriority()) {
             return leftChild;
         } else {
             return rightChild;
@@ -87,14 +92,16 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T>{
     }
 
     private void swim(int itemIndex) {
-        if (priorityQ[parent(itemIndex)].priority > priorityQ[itemIndex].priority) {
+        int test = parent(itemIndex);
+        if (priorityQ[parent(itemIndex)].getPriority() > priorityQ[itemIndex].getPriority()) {
             swap(itemIndex,parent(itemIndex));
             swim(parent(itemIndex));
         }
     }
 
     private void sink(int itemIndex) {
-        if(priorityQ[itemIndex].priority > priorityQ[child(itemIndex)].priority) {
+        int child = child(itemIndex);
+        if(priorityQ[child].getPriority() < priorityQ[itemIndex].getPriority()) {
             swap(itemIndex, child(itemIndex));
             sink(child(itemIndex));
         }
@@ -138,9 +145,9 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T>{
         }
         T itemHolder = priorityQ[1].item;
         priorityHashMap.remove(itemHolder);
+        sink(1);
         priorityQ[1] = priorityQ[nSize + 1];
         nSize--;
-        sink(1);
         if (nSize/arraySize < LOAD_FACTOR) {
             resizeDown();
         }

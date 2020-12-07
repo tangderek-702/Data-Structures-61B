@@ -1,6 +1,8 @@
 package bearmaps;
 
 import org.junit.Test;
+
+import static bearmaps.PrintHeapDemo.printSimpleHeapDrawing;
 import static org.junit.Assert.assertEquals;
 
 
@@ -16,6 +18,9 @@ public class ArrayHeapMinPQTest {
     public void testResize() {
         ArrayHeapMinPQ<Integer> test = new ArrayHeapMinPQ<>(20);
         test.add(101, 1);
+        test.add(5, 4);
+        test.add(10,2);
+
         test.removeSmallest();
         assertEquals(10, test.getArraySize());
     }
