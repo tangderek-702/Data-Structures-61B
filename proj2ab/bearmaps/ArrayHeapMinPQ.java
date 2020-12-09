@@ -13,7 +13,7 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
     private int arraySize;
     private double LOAD_FACTOR = 0.25;
 
-    public class Node<T> {
+    private class Node<T> {
         private double priority;
         private T item;
 
@@ -106,7 +106,7 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
 
     private void sink(int itemIndex) {
         int child = child(itemIndex);
-        if(priorityQ[child].getPriority() < priorityQ[itemIndex].getPriority()) {
+        if (priorityQ[child].getPriority() < priorityQ[itemIndex].getPriority()) {
             swap(itemIndex, child(itemIndex));
             sink(child);
         }
