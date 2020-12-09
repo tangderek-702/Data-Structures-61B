@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
 
 public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T>{
 
-    private Node<T>[] priorityQ;
+    public Node<T>[] priorityQ;
     private HashMap<T,Integer> priorityHashMap;
     private int nSize;
     private int arraySize;
@@ -26,7 +26,7 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T>{
             this.priority = priority;
         }
 
-        private double getPriority() {
+        public double getPriority() {
             return priority;
         }
 
@@ -41,10 +41,10 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T>{
     }
 
     public ArrayHeapMinPQ() {
-        this.priorityQ = (Node<T>[]) new Node[1];
         this.priorityHashMap = new HashMap<>();
         this.nSize = 0;
-        this.arraySize = 8; //arbitrary default size
+        this.arraySize = 20; //arbitrary default size
+        this.priorityQ = (Node<T>[]) new Node[21];
         priorityQ[0] = null;
     }
 
@@ -57,7 +57,7 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T>{
 
     private void resizeDown() {
         Node<T>[] holder = (Node<T>[]) new Node[arraySize / 2];
-        System.arraycopy(priorityQ, 0, holder, 0, nSize);
+        System.arraycopy(priorityQ, 0, holder, 0, nSize+1);
         arraySize  = arraySize / 2;
         priorityQ = holder;
     }
@@ -86,9 +86,12 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T>{
     }
 
     private void swap(int index1, int index2) {
+        priorityHashMap.put(priorityQ[index1].item,index2);
+        priorityHashMap.put(priorityQ[index2].item,index1);
         Node temp = priorityQ[index1];
         priorityQ[index1] = priorityQ[index2];
         priorityQ[index2] = temp;
+
     }
 
     private void swim(int itemIndex) {
@@ -103,7 +106,7 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T>{
         int child = child(itemIndex);
         if(priorityQ[child].getPriority() < priorityQ[itemIndex].getPriority()) {
             swap(itemIndex, child(itemIndex));
-            sink(child(itemIndex));
+            sink(child);
         }
     }
 
@@ -113,7 +116,7 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T>{
 
     @Override
     public void add(T item, double priority) {
-        if (nSize >= arraySize) {
+        if (nSize + 1 >= arraySize) {
             resizeUp();
         }
         if (priorityHashMap.containsKey(item)) {
@@ -145,10 +148,10 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T>{
         }
         T itemHolder = priorityQ[1].item;
         priorityHashMap.remove(itemHolder);
+        priorityQ[1] = priorityQ[nSize];
         sink(1);
-        priorityQ[1] = priorityQ[nSize + 1];
         nSize--;
-        if (nSize/arraySize < LOAD_FACTOR) {
+        if (nSize/arraySize > LOAD_FACTOR) {
             resizeDown();
         }
         return itemHolder;
