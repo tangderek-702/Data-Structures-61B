@@ -53,5 +53,4 @@ public class ArrayHeapMinPQTest {
         long end2 = System.currentTimeMillis();
         System.out.println("CP: time elapsed: " + (end2 - start2) / 1000.0 +  " seconds.");
     }
-
 }
